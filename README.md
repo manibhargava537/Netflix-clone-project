@@ -1,27 +1,3 @@
-<div align="center">
-  <img src="./public/assets/DevSecOps.png" alt="Logo" width="100%" height="100%">
-
-  <br>
-  <a href="http://netflix-clone-with-tmdb-using-react-mui.vercel.app/">
-    <img src="./public/assets/netflix-logo.png" alt="Logo" width="100" height="32">
-  </a>
-</div>
-
-<br />
-
-<div align="center">
-  <img src="./public/assets/home-page.png" alt="Logo" width="100%" height="100%">
-  <p align="center">Home Page</p>
-</div>
-
-# **Youtube Video for step by step Demonstration!**
-[![Video Tutorial](https://img.youtube.com/vi/g8X5AoqCJHc/0.jpg)](https://youtu.be/g8X5AoqCJHc)
-
-
-## Susbcribe:
-[https://www.youtube.com/@cloudchamp?
-](https://www.youtube.com/@cloudchamp?sub_confirmation=1)
-
 # Deploy Netflix Clone on Cloud using Jenkins - DevSecOps Project!
 
 ### **Phase 1: Initial Setup and Deployment**
@@ -82,41 +58,8 @@ Now recreate the Docker image with your api key:
 docker build --build-arg TMDB_V3_API_KEY=<your-api-key> -t netflix .
 ```
 
-**Phase 2: Security**
 
-1. **Install SonarQube and Trivy:**
-    - Install SonarQube and Trivy on the EC2 instance to scan for vulnerabilities.
-        
-        sonarqube
-        ```
-        docker run -d --name sonar -p 9000:9000 sonarqube:lts-community
-        ```
-        
-        
-        To access: 
-        
-        publicIP:9000 (by default username & password is admin)
-        
-        To install Trivy:
-        ```
-        sudo apt-get install wget apt-transport-https gnupg lsb-release
-        wget -qO - https://aquasecurity.github.io/trivy-repo/deb/public.key | sudo apt-key add -
-        echo deb https://aquasecurity.github.io/trivy-repo/deb $(lsb_release -sc) main | sudo tee -a /etc/apt/sources.list.d/trivy.list
-        sudo apt-get update
-        sudo apt-get install trivy        
-        ```
-        
-        to scan image using trivy
-        ```
-        trivy image <imageid>
-        ```
-        
-        
-2. **Integrate SonarQube and Configure:**
-    - Integrate SonarQube with your CI/CD pipeline.
-    - Configure SonarQube to analyze code for quality and security issues.
-
-**Phase 3: CI/CD Setup**
+**Phase 2: CI/CD Setup**
 
 1. **Install Jenkins for Automation:**
     - Install Jenkins on the EC2 instance to automate deployment:
@@ -154,32 +97,13 @@ Install below plugins
 
 1 Eclipse Temurin Installer (Install without restart)
 
-2 SonarQube Scanner (Install without restart)
+2 NodeJs Plugin (Install Without restart)
 
-3 NodeJs Plugin (Install Without restart)
-
-4 Email Extension Plugin
+3 Email Extension Plugin
 
 ### **Configure Java and Nodejs in Global Tool Configuration**
 
 Goto Manage Jenkins → Tools → Install JDK(17) and NodeJs(16)→ Click on Apply and Save
-
-
-### SonarQube
-
-Create the token
-
-Goto Jenkins Dashboard → Manage Jenkins → Credentials → Add Secret Text. It should look like this
-
-After adding sonar token
-
-Click on Apply and Save
-
-**The Configure System option** is used in Jenkins to configure different server
-
-**Global Tool Configuration** is used to configure different tools that we install using Plugins
-
-We will install a sonar scanner in the tools.
 
 Create a Jenkins webhook
 
@@ -230,25 +154,6 @@ pipeline {
     }
 }
 ```
-
-Certainly, here are the instructions without step numbers:
-
-**Install Dependency-Check and Docker Tools in Jenkins**
-
-**Install Dependency-Check Plugin:**
-
-- Go to "Dashboard" in your Jenkins web interface.
-- Navigate to "Manage Jenkins" → "Manage Plugins."
-- Click on the "Available" tab and search for "OWASP Dependency-Check."
-- Check the checkbox for "OWASP Dependency-Check" and click on the "Install without restart" button.
-
-**Configure Dependency-Check Tool:**
-
-- After installing the Dependency-Check plugin, you need to configure the tool.
-- Go to "Dashboard" → "Manage Jenkins" → "Global Tool Configuration."
-- Find the section for "OWASP Dependency-Check."
-- Add the tool's name, e.g., "DP-Check."
-- Save your settings.
 
 **Install Docker Tools and Docker Plugins:**
 
