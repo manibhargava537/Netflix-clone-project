@@ -6,6 +6,8 @@ on:
     push:
         branches:
             - master
+        paths-ignore:
+          - 'Kubernetes/**'
 env:
     AWS_REPOSITORY_URL: ${{ secrets.AWS_REPOSITORY_URL }}
     GITHUB_TOKEN: ${{ secrets.LOGIN_GITHUB_TOKEN }}
