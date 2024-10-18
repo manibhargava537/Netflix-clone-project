@@ -44,4 +44,4 @@ jobs:
                   git config user.email "cloudiandevops@gmail.com"
                   git add .
                   git commit -m "update deployment file with latest changes"
-                  git push --set-upstream origin master
+                  git push https://cloudiandevops:${{secrets.LOGIN_GITHUB_TOKEN}}@github.com/cloudiandevops/DevOps-Project.git HEAD:master
