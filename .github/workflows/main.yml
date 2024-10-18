@@ -35,4 +35,13 @@ jobs:
                   aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin 767398067552.dkr.ecr.ap-south-1.amazonaws.com
                   docker build --build-arg TMDB_V3_API_KEY=${{secrets.TMDB_V3_API_KEY}} -t ${{secrets.AWS_REPOSITORY_URL}}:$GITHUB_REF_NAME-$GITHUB_SHA . 
                   docker push ${{secrets.AWS_REPOSITORY_URL}}:$GITHUB_REF_NAME-$GITHUB_SHA
+             - name: Update Docker image in deployment.yml
+               run: |  
                   yq e '.spec.template.spec.containers[0].image = "${{secrets.AWS_REPOSITORY_URL}}:${{ env.GITHUB_BRANCH }}" ' -i Kubernetes/deployment.yml
+             - name: Commit changes  
+               run: |
+                  git config user.name "cloudiandevops"
+                  git config user.email "cloudiandevops@gmail.com"
+                  git add .
+                  git commit -m "update deployment file with latest changes"
+                  git push --set-upstream origin master
