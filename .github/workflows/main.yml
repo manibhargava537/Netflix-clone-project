@@ -53,6 +53,6 @@ jobs:
 
                   yq e '.spec.template.spec.containers[0].image = "${{secrets.AWS_REPOSITORY_URL}}:${{ env.GITHUB_BRANCH }}" ' -i Kubernetes/deployment.yml
                   git add .
-                  git commit -m "update deployment file with latest changes"
+                  git commit -m "update deployment file with latest changes" || echo "No changes to commit"
                   git push --set-upstream origin master
                   
