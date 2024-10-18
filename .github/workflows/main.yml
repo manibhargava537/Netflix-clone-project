@@ -40,8 +40,8 @@ jobs:
                   yq e '.spec.template.spec.containers[0].image = "${{secrets.AWS_REPOSITORY_URL}}:${{ env.GITHUB_BRANCH }}" ' -i Kubernetes/deployment.yml
              - name: Commit changes  
                run: |
-                  git config user.name "cloudiandevops"
-                  git config user.email "cloudiandevops@gmail.com"
+                  git config --local user.name "cloudiandevops"
+                  git config --local user.email "cloudiandevops@gmail.com"
                   git add .
                   git commit -m "update deployment file with latest changes"
-                  git push https://cloudiandevops:${{secrets.LOGIN_GITHUB_TOKEN}}@github.com/cloudiandevops/DevOps-Project.git HEAD:master
+                  git push https://x-access-token::${{secrets.LOGIN_GITHUB_TOKEN}}@github.com/cloudiandevops/DevOps-Project.git HEAD:master
