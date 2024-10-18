@@ -1,25 +1,19 @@
-# netflix-clone-ingress.yaml
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: netflix-clone-ingress
+  name: netflix-app-ingress
   annotations:
-    kubernetes.io/ingress.class: nginx
     nginx.ingress.kubernetes.io/rewrite-target: /
 spec:
+  ingressClassName: nginx 
   rules:
-  - host: netflix-clone.cloudiandevops.org    # Replace with your domain
-    http:
-      paths:
-      - path: /
-        pathType: Prefix
-        backend:
-          service:
-            name: netflix-app
-            port:
-              number: 80
-  # Optionally, you can configure TLS with cert-manager for HTTPS access
-  # tls:
-  # - hosts:
-  #   - netflix-clone.yourdomain.com
-  #   secretName: netflix-clone-tls  # TLS secret for HTTPS
+    - host: netflixclone.cloudiandevops.org      # Replace with your domain or use a dummy domain for testing
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: netflix-app-service # Name of your service
+                port:
+                  number: 80              # The port exposed by your service
