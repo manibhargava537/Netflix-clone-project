@@ -1,4 +1,4 @@
-name: Nodejs-docker
+name: netflix-cloneapp
 
 on:
     # Trigger the workflow on push,
@@ -23,7 +23,7 @@ jobs:
                with:
                  aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
                  aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-                 aws-region: us-east-1
+                 aws-region: ap-south-1
 
              - name: Login in to Amazon ECR
                id: login-ecr
@@ -39,9 +39,7 @@ jobs:
                   docker build --build-arg TMDB_V3_API_KEY=${{secrets.TMDB_V3_API_KEY}} -t ${{secrets.AWS_REPOSITORY_URL}}:$GITHUB_REF_NAME-$GITHUB_SHA . 
                   docker push ${{secrets.AWS_REPOSITORY_URL}}:$GITHUB_REF_NAME-$GITHUB_SHA
                  
-             - name: Update Docker image in deployment.yml
-               run: |  
-                  yq e '.spec.template.spec.containers[0].image = "${{secrets.AWS_REPOSITORY_URL}}:${{ env.GITHUB_BRANCH }}" ' -i Kubernetes/deployment.yml
+        
              - name: Commit changes  
                run: |
                   git clone https://${{secrets.LOGIN_GITHUB_USER}}:${{secrets.LOGIN_GITHUB_TOKEN}}@github.com/cloudiandevops/DevOps-Project.git
