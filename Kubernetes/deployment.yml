@@ -16,6 +16,6 @@ spec:
     spec:
       containers:
         - name: netflix-app
-          image: 767398067552.dkr.ecr.ap-south-1.amazonaws.com/neflix-project:master-78523a29415c675574bb8b09a170a82ae4e90789
+          image: 767398067552.dkr.ecr.ap-south-1.amazonaws.com/neflix-project:master-bae8bb77c753c1aab05c53f308c480a3522b0bcf
           ports:
             - containerPort: 80
