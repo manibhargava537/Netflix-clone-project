@@ -23,7 +23,7 @@ jobs:
                with:
                  aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
                  aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-                 aws-region: ap-south-1
+                 aws-region: us-east-1
 
              - name: Login in to Amazon ECR
                id: login-ecr
@@ -35,7 +35,7 @@ jobs:
 
              - name: Build the Docker image
                run: |
-                  aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin 767398067552.dkr.ecr.ap-south-1.amazonaws.com
+                  aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin 211125610248.dkr.ecr.us-east-1.amazonaws.com/netflix
                   docker build --build-arg TMDB_V3_API_KEY=${{secrets.TMDB_V3_API_KEY}} -t ${{secrets.AWS_REPOSITORY_URL}}:$GITHUB_REF_NAME-$GITHUB_SHA . 
                   docker push ${{secrets.AWS_REPOSITORY_URL}}:$GITHUB_REF_NAME-$GITHUB_SHA
                  
