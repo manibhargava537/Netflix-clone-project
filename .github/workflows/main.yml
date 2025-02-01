@@ -1,7 +1,7 @@
 name: netflix-cloneapp
 
 on:
-    # Trigger the workflow on push,
+    # Trigger the workflow on push
     # but only for the pre-production branch
     push:
         branches:
